@@ -1,0 +1,2 @@
+WRITELN head -10 < /dev/urandom | cat > /dev/null
+WRITELN exit

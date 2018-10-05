@@ -1,0 +1,142 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{tadoc}
+
+%\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{xcolor}
+%\usepackage{graphicx}
+
+\usepackage{minted}
+\usemintedstyle{autumn}
+\setminted{linenos,breaklines,tabsize=4,xleftmargin=1.5em}
+%\usepackage{framed}
+
+%\renewcommand{\multirowsetup}{\centering} 
+
+\title{VE482 --- Introduction to\\ Operating Systems}
+\subtitle{Project 1 (Compile guide)}
+\author{\href{mailto:liuyh615@sjtu.edu.cn}{Yihao Liu}}
+\semester{Fall}
+\year{2018}
+\blockinfo{
+	\begin{center}
+		\textbf{Goals of the guide }
+	\end{center}
+	\begin{itemize}\itemsep .25cm
+		\item Install and use LLVM / Clang
+		\item Use GNU make / CMake
+		\item Submit on JOJ
+	\end{itemize}
+}
+
+% whether or not to display the instructor line
+\noinstructor
+
+%\pagenumbering{gobble}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+You're going to know how to build your project compatible to JOJ and submit it in this guide. \smallskip
+
+\noindent We are using \texttt{llvm/clang} to compile and test your program on JOJ, and we provide two build tools: \texttt{GNU make} and \texttt{CMake}, you can choose either of them in this project.
+
+\section{LLVM / Clang}
+
+\subsection{Introduction}
+
+\texttt{clang} is now widely used as a substitute of \texttt{gcc}, it has GCC compatibility, fast compiles and low memory use, and expressive diagnostics. \smallskip
+
+\noindent So it's a good choice to install and use \texttt{clang} to compile and run your projects locally. In addition, Minix 3 only supports \texttt{clang} in default, instead of \texttt{gcc}. \bigskip
+
+\noindent The LLVM Project is a collection of modular and reusable compiler and toolchain technologies. Despite its name, LLVM has little to do with traditional virtual machines. The name "LLVM" itself is not an acronym; it is the full name of the project. \smallskip
+
+\noindent Find more information on \url{https://llvm.org/}. \bigskip
+
+\noindent The Clang project provides a language front-end and tooling infrastructure for languages in the C language family (C, C++, Objective C/C++, OpenCL, CUDA, and RenderScript) for the LLVM project. \smallskip
+
+\noindent Find more information on \url{https://clang.llvm.org/}.
+
+\subsection{Installation}
+
+On Windows, you can install and use \texttt{clang} for normal c projects, but this project needs some POSIX standard supports, while Windows doesn't have a full implementation of the standard, so you're recommended to switching to Linux. \smallskip
+
+\noindent On most Linux distributions, \texttt{clang} can be found in the package manager. For example, for Debian (Ubuntu / Linux Mint), you can install it with
+
+\begin{minted}{shell}
+$ sudo apt install clang
+\end{minted}
+%$
+
+\noindent On Mac OS X, \texttt{clang} is the default compiler installed. The \texttt{gcc} and \texttt{g++} commands are only alias of it. \smallskip
+
+\noindent On Minix 3, \texttt{clang} is also the default compiler, but you need to install it yourselves.
+
+\begin{minted}{shell}
+$ pkgin install binutils
+$ pkgin install clang
+\end{minted}
+
+\subsection{Sanitizers}
+
+\texttt{clang} provides some sanitizers to detect memory leaks, undefined behaviors and etc.
+
+\subsubsection{AddressSanitizer}
+
+AddressSanitizer is a fast memory error detector. It consists of a compiler instrumentation module and a run-time library. The tool can detect the following types of bugs:
+
+\begin{itemize}
+	\item Out-of-bounds accesses to heap, stack and globals
+	\item Use-after-free
+	\item Use-after-return
+	\item Use-after-scope
+	\item Double-free, invalid free
+	\item Memory leaks
+\end{itemize}
+
+\noindent Find more information on \url{https://clang.llvm.org/docs/AddressSanitizer.html}.
+
+\subsubsection{UndefinedBehaviorSanitizer}
+
+UndefinedBehaviorSanitizer (UBSan) is a fast undefined behavior detector. UBSan modifies the program at compile-time to catch various kinds of undefined behavior during program execution, for example:
+
+\begin{itemize}
+	\item Using misaligned or null pointer
+	\item Signed integer overflow
+	\item Conversion to, from, or between floating-point types which would overflow the destination
+\end{itemize}
+
+\noindent Find more information on \url{https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html}.
+
+\section{Build tools}
+
+\subsection{GNU Make}
+
+Here we have a sample \texttt{Makefile} for you. Fill in \texttt{MUMSH\_SRC} and then run \texttt{make} to build your project.
+
+\inputminted{makefile}{Makefile}
+
+
+\subsection{CMake}
+
+Here we have a sample \texttt{CMakeLists.txt} for you. Add files in \texttt{SOURCE\_FILES} and make sure you have \texttt{cmake} installed on your system (provided on Linux / Mac OS X / Minix 3 by package manager).
+
+\inputminted{cmake}{CMakeLists.txt}
+
+\noindent Then run the following commands to build your project. If you are using \texttt{CLion}, it will be automatically configured with \texttt{CMakeLists.txt}.
+
+\begin{minted}{shell}
+$ mkdir cmake-build-debug && cd cmake-build-debug
+$ cmake -DCMAKE_C_COMPILER=clang . 
+$ make
+\end{minted}
+%$
+
+\section{Submission on JOJ}
+
+You should archive everything in a tarball (\texttt{*.tar}) and submit on JOJ. Remember to select your build tool first, and your \texttt{Makefile} and \texttt{CMakeLists.txt} must be in the first level directory. 
+
+\end{document} 

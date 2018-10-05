@@ -1,0 +1,2 @@
+WRITELN echo 123 abc
+WRITELN exit

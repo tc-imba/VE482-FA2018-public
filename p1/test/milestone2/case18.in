@@ -1,0 +1,6 @@
+WRITELN sleep 10 | sleep 10 | sleep 10 | sleep 10 | sleep 10 | sleep 10 | sleep 10 | sleep 10 | sleep 10 | echo 123
+CTRL C
+CTRL C
+WRITELN echo success
+CTRL C
+WRITELN exit

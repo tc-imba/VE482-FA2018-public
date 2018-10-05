@@ -1,0 +1,4 @@
+WRITELN pwd > 1.txt
+WRITELN cat 1.txt
+WRITELN ls
+WRITELN exit

@@ -1,0 +1,2 @@
+WRITELN ls -a | grep mum
+WRITELN exit

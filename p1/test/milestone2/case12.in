@@ -1,0 +1,9 @@
+WRITELN mkdir test
+WRITELN cd test
+WRITELN echo 123 > 1.txt
+WRITELN cat 1.txt
+WRITELN ls -a
+WRITELN cd ..
+WRITELN ls -R
+WRITELN cat test/1.txt
+WRITELN exit

@@ -1,0 +1,5 @@
+WRITELN sleep 10
+CTRL C
+WRITELN echo success
+CTRL C
+WRITELN exit

@@ -1,0 +1,6 @@
+WRITELN echo 321 > 1.txt
+WRITELN echo 123 > 2.txt
+WRITELN cat 2.txt
+WRITELN cat 1.txt
+WRITELN ls
+WRITELN exit

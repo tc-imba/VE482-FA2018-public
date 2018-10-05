@@ -1,0 +1,2 @@
+WRITELN echo exit | ./mumsh
+WRITELN exit

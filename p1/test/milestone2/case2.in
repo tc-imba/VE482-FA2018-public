@@ -1,0 +1,2 @@
+WRITELN echo 123 | cat
+WRITELN exit

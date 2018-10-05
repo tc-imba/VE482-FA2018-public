@@ -1,0 +1,6 @@
+mumsh $ .
+..
+driver
+mumsh
+mumsh_memory_check
+mumsh $ exit

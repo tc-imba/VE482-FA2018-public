@@ -1,0 +1,5 @@
+WRITELN echo 123 > 1.txt
+WRITELN head < 1.txt
+WRITELN diff -y - 1.txt < 1.txt
+WRITELN ls
+WRITELN exit

@@ -1,0 +1,2 @@
+WRITELN ls -a
+WRITELN exit
