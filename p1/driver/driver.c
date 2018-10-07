@@ -8,7 +8,7 @@
 #include <string.h>
 #include <signal.h>
 
-void kill_subprocess(int ppid, int pid, int dunno) {
+void kill_subprocess(int ppid, int dunno) {
     fprintf(stderr, "Scan child pids of ppid: %d\n", ppid);
     int fd[2];
     pipe(fd);
@@ -22,21 +22,17 @@ void kill_subprocess(int ppid, int pid, int dunno) {
         char *const __argv[] = {"ps", "--ppid", ppid_str, NULL};
         execvp(__argv[0], __argv);
     } else {
+        kill(ppid, dunno);
+        fprintf(stderr, "Send signal %d to pid: %d\n", dunno, ppid);
         close(fd[1]);
         FILE *fp = fdopen(fd[0], "r");
         char buf[1024];
         fgets(buf, sizeof buf, fp);
-        fprintf(stderr, "Send signal %d to pid: %d\n", dunno, ppid);
-        kill(ppid, dunno);
         while (fgets(buf, sizeof buf, fp) != NULL) {
             int child_pid;
             sscanf(buf, "%d", &child_pid);
-            if (pid != child_pid) {
-//                fprintf(stderr, "Found child pid: %d of ppid: %d\n", child_pid, ppid);
-                kill_subprocess(child_pid, pid ,dunno);
-            }
+            kill_subprocess(child_pid ,dunno);
         }
-//        waitpid(new_pid, NULL, 0);
         close(fd[0]);
     }
 }
@@ -54,10 +50,10 @@ int main(int argc, char *argv[]) {
     int fd[2];
     pipe(fd);
     int pid = fork();
-    if (pid == 0) {
+    if (pid > 0) {
         signal(SIGINT, sigroutine);
         char buf[2048] = {0};
-        int ppid = getppid();
+        int ppid = getpid();
         getcwd(buf, sizeof(buf));
         fprintf(stderr, " pwd: %s\n", buf);
         fprintf(stderr, "ppid: %d\n", ppid);
@@ -88,8 +84,7 @@ int main(int argc, char *argv[]) {
             } else if (strcmp(command, "CTRL") == 0) {
                 if (line[0] == 'C') {
                     fprintf(stderr, "%4zu: CTRL+C\n", lineno);
-                    kill_subprocess(ppid, getpid(), SIGINT);
-                    //                    kill(ppid, SIGINT);
+                    kill_subprocess(ppid, SIGINT);
                 } else if (line[0] == 'D') {
                     fprintf(stderr, "%4zu: CTRL+D\n", lineno);
                 }
