@@ -1,6 +1,6 @@
 # VE482 Project 1
 
-The final pretest doesn't count towards grade, please submit your shell in the final submission homework.
+The final pretest doesn't count towards grade, please submit your shell in the final shell homework.
 
 The project have three stages:
 
@@ -16,3 +16,5 @@ If you are using GNU Make and you meet an compile error like
 error: implicit declaration of function 'xxx' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
 ```
 It is because you didn't use the gnu standard of c. Add `-std=gnu11` instead of `-std=c11` to resolve this problem.
+
+All of the test cases can be found in https://github.com/tc-imba/VE482-FA2018-public/tree/master/p1

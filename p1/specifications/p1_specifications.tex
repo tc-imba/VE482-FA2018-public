@@ -1,0 +1,283 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{tadoc}
+
+%\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{xcolor}
+%\usepackage{graphicx}
+
+\usepackage{minted}
+\usemintedstyle{autumn}
+\setminted{linenos,breaklines,tabsize=4,xleftmargin=1.5em}
+%\usepackage{framed}
+
+%\renewcommand{\multirowsetup}{\centering} 
+
+\title{VE482 --- Introduction to\\ Operating Systems}
+\subtitle{Project 1 (Specifications)}
+\author{\href{mailto:liuyh615@sjtu.edu.cn}{Yihao Liu}}
+\semester{Fall}
+\year{2018}
+\blockinfo{
+	\begin{center}
+		\textbf{Goals of the guide }
+	\end{center}
+	\begin{itemize}\itemsep .25cm
+		\item Clarify the descriptions in the project
+		\item Show some test cases
+	\end{itemize}
+}
+
+% whether or not to display the instructor line
+\noinstructor
+
+%\pagenumbering{gobble}
+
+\newcommand{\example}[2]{
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Example (#1)]
+\begin{minipage}{0.48\linewidth}
+\inputminted{shell}{#2.in}
+\end{minipage}
+\begin{minipage}{0.48\linewidth}
+\inputminted{shell}{#2.out}
+\end{minipage}
+\end{tcolorbox}
+}
+
+\begin{document}
+
+\maketitle
+
+\section{Format}
+
+\subsection{Input}
+We will test your shell with a carefully coded \href{https://github.com/tc-imba/VE482-FA2018-public/blob/master/p1/driver/driver.c}{driver}, so the input format in the test cases will be taken as the driver's \texttt{stdin}. \bigskip
+
+There are three kinds of commands in the input: 
+\begin{itemize}
+\item \texttt{WRITELN <line>}: Write \texttt{line} to your shell ended with a \texttt{\textbackslash n}.
+\item \texttt{CTRL <C|D>}: Send \texttt{SIGINT} with \texttt{CTRL C} or \texttt{EOF} with \texttt{CTRL D}.
+\item \texttt{WAIT <T>}: Wait for \texttt{T} ms.
+\end{itemize}
+
+\subsection{Output}
+All of output should be flushed if it wasn't flushed automatically by \texttt{\textbackslash n}. If you don't do so, the order of the output of different processes can be arbitrary, so you will get wrong answer. \bigskip
+
+The newline character (\texttt{\textbackslash n}), tab character \texttt{\textbackslash t} and spaces will be considered as the same in the output. \bigskip
+
+We will redirect you \texttt{stdout} and \texttt{stderr} to the same file in the driver, so please do not print debug information to \texttt{stderr}. The reason why we are doing it is that s shell should print prompts and error messages to \texttt{stderr}, though our project doesn't have this requirement. Some students may follow this rule but some won't, so we have to consider them together.
+
+\subsection{Examples}
+The examples will show input in the left and output in the right. Most of them are from milestone 1 and 2, and the real test cases before. We open these because we are testing your shell functionalities instead of sticking to your carefulness on I/O formats.
+
+\section{Tasks}
+
+\subsection{Write a working read/parse/execute loop and an exit command; [5] }
+
+The loop time should be reasonable (<10ms), we will test on your overall preference in this part.
+
+Hint: Don't forget to print \texttt{exit} when exiting your shell. \smallskip
+
+\example{Milestone 1 Case 1}{../test/milestone1/case1}
+
+
+\subsection{Handle single commands without arguments; [5]}
+
+Hint: We only have three files in the working directory, they are \texttt{driver}, \texttt{mumsh}, \texttt{mumsh\_mmeory\_check}.\smallskip
+
+\example{Milestone 1 Case 2}{../test/milestone1/case2}
+
+\subsection{Support commands with arguments; [5]}
+
+We've seen someone write programs like \texttt{cat}, \texttt{ls} himself, that is totally wrong in a shell. So we have these examples with package managers now.
+\smallskip
+\example{Milestone 1 Case 5}{../test/milestone1/case5}
+
+\subsection{File I/O redirection: [5+5+5+2]}
+This task is based on Task 2 and 3. \smallskip
+
+Only one output redirection and one input redirection is allowed in a command. The test cases will strictly follow this rule.
+
+
+\subsubsection{Output redirection by overwriting a file [5]}
+\example{Milestone 1 Case 7}{../test/milestone1/case7}
+
+\subsubsection{Output redirection by appending to a file; [5]}
+\example{Milestone 1 Case 9}{../test/milestone1/case9}
+
+\subsubsection{Input redirection; [5]}
+\example{Milestone 1 Case 11}{../test/milestone1/case11}
+
+\subsection{Support for bash style redirection syntax; [8]}
+The bash style redirection syntax is very complex, we only require you to implement part of it. The following example actually shows all of the requirements:
+\begin{itemize}
+\item space between redirection symbols and arguments can be omitted.
+\item the redirection symbol can take place everywhere in the command.
+\end{itemize}
+\example{Milestone 1 Case 18}{../test/milestone1/case18}
+
+\subsection{Pipes: [5+5+5+10]}
+\subsubsection{Basic pipe support; [5]}
+\example{Milestone 2 Case 1}{../test/milestone2/case1}
+
+\subsubsection{Run all `stages' of piped process in parallel; [5]}
+We simply limit your total runtime in 1s in the test. \smallskip
+\example{Milestone 2 Case 3}{../test/milestone2/case3}
+
+A tricky test of executing the shell itself. \smallskip
+\example{Milestone 2 Case 4}{../test/milestone2/case4}
+
+\subsubsection{Extend 6.2 to support requirements 4. and 5. ; [5]}
+
+Input redirection can only be found in the first command, and output redirection can only be found in the last command, and each of them can occur only once. The test cases will strictly follow this rule.\smallskip
+\example{Milestone 2 Case 5}{../test/milestone2/case5}
+
+\subsubsection{Extend 6.3 to support arbitrarily deep ``cascade pipes'' ; [10]}
+Do you like the cats in the example? (Miao -,-) \smallskip
+\example{Milestone 2 Case 8}{../test/milestone2/case8}
+
+\subsection{Support CTRL-D (similar to bash, when there is no/an unfinished command); [5]}
+If there is an unfinished command, nothing should happen. \smallskip
+
+If the command line is empty, exit the shell and print \texttt{exit}.
+
+\subsection{Internal commands: [5+5+5]}
+\subsubsection{Implement pwd as a built-in command; [5]}
+Do not use the builtin \texttt{pwd} command.
+
+\subsubsection{Allow changing working directory using cd; [5]}
+You should consider these:
+\begin{itemize}
+\item Execute \texttt{pwd} , then execute \texttt{cd ..} followed by \texttt{cd .} and another \texttt{pwd}
+\item Execute \texttt{cd /etc/../etc/././../etc}
+\item Execute \texttt{cd} alone.
+\item Execute \texttt{cd} with more than 1 argument
+\end{itemize}
+
+\subsubsection{Allow pwd to be piped or redirected as specified in requirement 4.; [5]}
+
+\example{Milestone 2 Case 13}{../test/milestone2/case13}
+
+\subsection{Support CTRL-C: [5+3+2+10]}
+Your shell is likely to get TLE (Time Limit Exceeded) if CTRL-C is not handled correctly. \smallskip
+
+You should NOT use \texttt{kill(0, signal)}, it may destroy the judger. You will be sent to the honor council if you intentionally use it.
+
+\subsubsection{Properly handle CTRL-C in the case of requirement 4. [5]}
+\example{Milestone 2 Case 15}{../test/milestone2/case15}
+
+\subsubsection{Extend 9.1 to support subtasks 6.1 to 6.3; [3]}
+\example{Milestone 2 Case 16}{../test/milestone2/case16}
+
+\subsubsection{Extend 9.2 to support requirement 7., especially on an incomplete input; [2]}
+\example{Milestone 2 Case 17}{../test/milestone2/case17}
+
+\subsubsection{Extend 9.3 to support requirement 6.; [10]}
+\example{Milestone 2 Case 18}{../test/milestone2/case18}
+
+\subsection{Support quotes: [5+2+3+5]}
+
+\subsubsection{Handle single and double quotes; [5]}
+Hint: the program name can also be quoted. \smallskip
+\example{Final Pretest Case 2}{../test/final_pretest/case2}
+
+\subsubsection{Extend 10.1 to support requirement 4. and subtasks 6.1 to 6.3; [2]}
+\example{Final Pretest Case 3}{../test/final_pretest/case3}
+\example{Final Pretest Case 4}{../test/final_pretest/case4}
+
+\subsubsection{Extend 10.2 in the case of incomplete quotes; [3]}
+This part is similar to some functions in task 11, consider them together. \smallskip
+
+You should output ``> '' before after user hitting enter. \smallskip
+\example{Final Pretest Case 6}{../test/final_pretest/case6}
+
+\subsubsection{Extend 10.3 to support requirements 4. and 6., together with subtask 9.3; [5]}
+Usually you do not need to modify many things for this task if you design your shell well. It is not tested in the final pretest, but will be tested in the final shell.
+
+\subsection{Wait for the command to be completed when encountering >, <, or |: [3+2]}
+
+You should output "> " before after user hitting enter.
+\subsubsection{Support requirements 3. and 4. together with subtasks 6.1 to 6.3; [3]}
+
+Hint: ``>>'' don't need to be supported. \smallskip
+\example{Final Pretest Case 7}{../test/final_pretest/case7}
+\example{Final Pretest Case 9}{../test/final_pretest/case9}
+\example{Final Pretest Case 11}{../test/final_pretest/case11}
+
+\subsubsection{Extend 11.1 to support requirement 10.; [2]}
+Hint: Actually 10.3 already has this functionality, so only need to extend to 10.1, 10.2, 10.4 \smallskip
+\example{Final Pretest Case 13}{../test/final_pretest/case13}
+
+\subsection{Handle errors for all supported features. [10]}
+There are eight kinds of errors to be handled. In test cases of other tasks, none of these errors will be included. You will always get a correct command then. At most one error occurs in a command, so you do not need to consider about the order of errors. \smallskip
+
+The output format of your errors should strictly follow the format listed below. It is very similar to the bash style error output format.
+
+\begin{enumerate}
+\item Non-existing program
+\begin{itemize}
+\item input: \mintinline{shell}{non-exist abc def}
+\item input: \mintinline{shell}{echo abc | non-exist}
+\item output: \mintinline{shell}{non-exist: command not found}
+\end{itemize}
+\item Non-existing file in input redirection
+\begin{itemize}
+\item input: \mintinline{shell}{cat < non-existing.txt}
+\item output: \mintinline{shell}{non-existing.txt: No such file or directory}
+\end{itemize}
+\item Failed to open file in output redirection
+\begin{itemize}
+\item input: \mintinline{shell}{echo abc > /dev/permission_denied}
+\item output: \mintinline{shell}{/dev/permission_denied: Permission denied}
+\end{itemize}
+\item Duplicated input redirection
+\begin{itemize}
+\item input: \mintinline{shell}{echo abc < 1.txt < 2.txt}
+\item input: \mintinline{shell}{echo abc | grep abc < 1.txt}
+\item output: \mintinline{shell}{error: duplicated input redirection}
+\end{itemize}
+\item Duplicated output redirection
+\begin{itemize}
+\item input: \mintinline{shell}{echo abc > 1.txt > 2.txt}
+\item input: \mintinline{shell}{echo abc > 1.txt >> 2.txt}
+\item input: \mintinline{shell}{echo abc > 1.txt | grep abc}
+\item output: \mintinline{shell}{error: duplicated output redirection}
+\end{itemize}
+\item Syntax Error
+\begin{itemize}
+\item input: \mintinline{shell}{echo abc > > > >}
+\item output: \mintinline{shell}{syntax error near unexpected token `>'}
+\item input: \mintinline{shell}{echo abc > < 1.txt}
+\item output: \mintinline{shell}{syntax error near unexpected token `<'}
+\item input: \mintinline{shell}{echo abc > | grep abc}
+\item output: \mintinline{shell}{syntax error near unexpected token `|'}
+\end{itemize}
+\item Missing program
+\begin{itemize}
+\item input: \mintinline{shell}{> abc | | grep 123}
+\item output: \mintinline{shell}{error: missing program}
+\end{itemize}
+\item \texttt{cd} to non-existing directory
+\begin{itemize}
+\item input: \mintinline{shell}{cd non-existing}
+\item output: \mintinline{shell}{non-existing: No such file or directory}
+\end{itemize}
+\end{enumerate}
+
+\subsection{A command ending with an \& should be run in background. [10+5]}
+
+\subsubsection{For any background job, the shell should print out the command line, prepended with the job ID [10]}
+Hints:
+\begin{itemize}
+\item Do not print the process ID.
+\item Do not print complete information and "mumsh \$" after the job is finished (like `bash` or `zsh`).
+\item The job ID starts from 1. 
+\end{itemize} 
+\example{Final Pretest Case 23}{../test/final_pretest/case23}
+
+\subsubsection{Implement the command jobs which prints a list of background tasks together with their running states [5]}
+Hint: Print all of done and running background processes in this shell. \smallskip
+\example{Final Pretest Case 23}{../test/final_pretest/case24}
+
+
+\end{document} 
