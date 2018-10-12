@@ -1,0 +1,6 @@
+mumsh $ mumsh $ 123 |
+mumsh $ 1.txt
+driver
+mumsh
+mumsh_memory_check
+mumsh $ exit

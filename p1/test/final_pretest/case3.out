@@ -1,0 +1,8 @@
+mumsh $ mumsh $ mumsh $ 123
+mumsh $ <1.'txt'
+mumsh $ 1.txt
+2.txt
+driver
+mumsh
+mumsh_memory_check
+mumsh $ exit

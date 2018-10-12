@@ -1,0 +1,2 @@
+WRITELN echo "de'f' ghi" '123"a"bc' a b c
+WRITELN exit

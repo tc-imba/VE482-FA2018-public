@@ -1,0 +1,4 @@
+WRITELN echo abc > 1.txt > 2.txt
+WRITELN echo abc > 1.txt >> 2.txt
+WRITELN echo abc > 1.txt | grep abc
+WRITELN exit

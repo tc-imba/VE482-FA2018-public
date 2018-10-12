@@ -1,0 +1,3 @@
+WRITELN non-exist abc def
+WRITELN sleep 0.2 | non-exist
+WRITELN exit

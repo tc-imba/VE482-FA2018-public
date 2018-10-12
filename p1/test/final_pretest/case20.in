@@ -1,0 +1,5 @@
+WRITELN echo 123 > 1.txt
+WRITELN echo abc > > > >
+WRITELN echo abc > < 1.txt
+WRITELN echo abc > | grep abc
+WRITELN exit

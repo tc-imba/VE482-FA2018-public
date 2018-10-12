@@ -1,0 +1,89 @@
+languages:
+- language: cmake
+  compiler_file: /bin/bash
+  compiler_args: bash /in/driver/cmake.sh
+  execute_file: driver
+  execute_args: driver ./mumsh_memory_check
+- language: make
+  compiler_file: /bin/bash
+  compiler_args: bash /in/driver/make.sh
+  execute_file: driver
+  execute_args: driver ./mumsh_memory_check
+compile_time_files: driver/
+default: &default
+  time: 1s
+  memory: 32m
+  score: 10
+cases:
+- <<: *default
+  input: cases/case1.in
+  output: cases/case1.out
+- <<: *default
+  input: cases/case2.in
+  output: cases/case2.out
+- <<: *default
+  input: cases/case3.in
+  output: cases/case3.out
+- <<: *default
+  input: cases/case4.in
+  output: cases/case4.out
+- <<: *default
+  input: cases/case5.in
+  output: cases/case5.out
+- <<: *default
+  input: cases/case6.in
+  output: cases/case6.out
+- <<: *default
+  input: cases/case7.in
+  output: cases/case7.out
+- <<: *default
+  input: cases/case8.in
+  output: cases/case8.out
+- <<: *default
+  input: cases/case9.in
+  output: cases/case9.out
+- <<: *default
+  input: cases/case10.in
+  output: cases/case10.out
+- <<: *default
+  input: cases/case11.in
+  output: cases/case11.out
+- <<: *default
+  input: cases/case12.in
+  output: cases/case12.out
+- <<: *default
+  input: cases/case13.in
+  output: cases/case13.out
+- <<: *default
+  input: cases/case14.in
+  output: cases/case14.out
+- <<: *default
+  input: cases/case15.in
+  output: cases/case15.out
+- <<: *default
+  input: cases/case16.in
+  output: cases/case16.out
+- <<: *default
+  input: cases/case17.in
+  output: cases/case17.out
+- <<: *default
+  input: cases/case18.in
+  output: cases/case18.out
+- <<: *default
+  input: cases/case19.in
+  output: cases/case19.out
+- <<: *default
+  input: cases/case20.in
+  output: cases/case20.out
+- <<: *default
+  input: cases/case21.in
+  output: cases/case21.out
+- <<: *default
+  input: cases/case22.in
+  output: cases/case22.out
+- <<: *default
+  input: cases/case23.in
+  output: cases/case23.out
+- <<: *default
+  input: cases/case24.in
+  output: cases/case24.out

@@ -29,7 +29,6 @@ All of the test cases are very basic input, and we'll give hints on many common 
 ### 7. Support CTRL-D (similar to bash, when there is no/an unfinished command); \[5\]
 
 + Case: 9-10
-+ Don't forget to print "exit" when exiting your shell
 
 ### 8. Internal commands: \[5+5+5\]
 
@@ -49,7 +48,7 @@ All of the test cases are very basic input, and we'll give hints on many common 
 ### 9. Support CTRL-C: \[5+3+2+10\]
 
 + Your shell is likely to get TLE (Time Limit Exceeded) if CTRL-C is not handled correctly.
-+ You should NOT use the kill syscall, especially kill(0, signal), it may destroy the judger. You will be sent to the honor council if you intentionally use it.
++ You should NOT use kill(0, signal), it may destroy the judger. You will be sent to the honor council if you intentionally use it.
 
 #### 9.1. Properly handle CTRL-C in the case of requirement 4.; \[5\]
 

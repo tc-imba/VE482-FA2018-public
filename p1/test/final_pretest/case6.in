@@ -1,0 +1,7 @@
+WRITELN echo 123 > 1.txt
+WRITELN echo "<1.'txt'
+WRITELN " < 1.txt >> 2."'txt'"
+WRITELN cat 1.txt
+WRITELN cat 2."'txt'"
+WRITELN ls
+WRITELN exit

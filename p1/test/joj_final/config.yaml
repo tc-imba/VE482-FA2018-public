@@ -1,0 +1,21 @@
+languages:
+- language: cmake
+  compiler_file: /bin/bash
+  compiler_args: bash /in/driver/cmake.sh
+  execute_file: driver
+  execute_args: driver ./mumsh
+- language: make
+  compiler_file: /bin/bash
+  compiler_args: bash /in/driver/make.sh
+  execute_file: driver
+  execute_args: driver ./mumsh
+compile_time_files: driver/
+default: &default
+  time: 1s
+  memory: 32m
+  score: 10
+cases:
+- <<: *default
+  input: case0.in
+  output: case0.out
+  category: sentence

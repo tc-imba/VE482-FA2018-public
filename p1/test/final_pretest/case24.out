@@ -1,0 +1,8 @@
+mumsh $ [1] /bin/ls &
+mumsh $ driver
+mumsh
+mumsh_memory_check
+mumsh $ [2] sleep 0.2 &
+mumsh $ [1] done /bin/ls &
+[2] running sleep 0.2 &
+mumsh $ mumsh $ exit

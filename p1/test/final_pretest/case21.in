@@ -1,0 +1,2 @@
+WRITELN > abc | | grep 123
+WRITELN exit

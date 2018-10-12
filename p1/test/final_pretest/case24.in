@@ -1,0 +1,6 @@
+WRITELN /bin/ls &
+WRITELN sleep 0.2
+WRITELN sleep 0.2 &
+WRITELN jobs
+WRITELN sleep 0.4
+WRITELN exit

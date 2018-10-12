@@ -1,0 +1,2 @@
+WRITELN "echo" 'abc def' "xm""fxh"
+WRITELN exit

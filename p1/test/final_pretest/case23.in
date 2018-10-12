@@ -1,0 +1,5 @@
+WRITELN /bin/ls &
+WRITELN sleep 0.2
+WRITELN /bin/ls | cat &
+WRITELN sleep 0.2
+WRITELN exit

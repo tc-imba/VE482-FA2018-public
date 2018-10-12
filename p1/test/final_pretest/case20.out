@@ -1,0 +1,4 @@
+mumsh $ mumsh $ syntax error near unexpected token `>'
+mumsh $ syntax error near unexpected token `<'
+mumsh $ syntax error near unexpected token `|'
+mumsh $ exit

@@ -1,0 +1,9 @@
+mumsh $ [1] /bin/ls &
+mumsh $ driver
+mumsh
+mumsh_memory_check
+mumsh $ [2] /bin/ls | cat &
+mumsh $ driver
+mumsh
+mumsh_memory_check
+mumsh $ exit
